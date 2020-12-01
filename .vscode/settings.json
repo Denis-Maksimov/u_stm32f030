@@ -1,0 +1,8 @@
+{
+    "C_Cpp.errorSquiggles": "Disabled",
+    "files.associations": {
+        "stm32f0xx.h": "c",
+        "stdint.h": "c",
+        "core_cm0.h": "c"
+    }
+}
