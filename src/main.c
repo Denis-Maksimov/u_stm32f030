@@ -1,18 +1,29 @@
 #include "main.h"
+#include "gpio.h"
+/*
+*            _____________
+    BOOT0-|             |-PA14 
+    PF0  -|             |-PA13
+    PF1  -|             |-PA10
+    RST  -|             |-PA9
+    VDDA -|             |-VDD
+    PA0  -|             |-VSS
+PWM PA1  o|             |-PB1
+    PA2  -|             |-PA7
+    PA3  -|             |-PA6
+    PA4  -|_____________|-PA5
+*     
+* */
+void leds_init(u_gpio* gpio_A1){
 
 
-void leds_init(){
+  gpio_A1->mode=AF;
+  gpio_A1->pin=1;
+  gpio_A1->PP_PD=push_pull;
+  gpio_A1->speed=high;
+  gpio_accept_settings(gpio_A1);
 
-  RCC->AHBENR |= RCC_AHBENR_GPIOAEN; /* (1) */
-  GPIOA->MODER = (GPIOA->MODER & ~(GPIO_MODER_MODER4 | 
-                                    GPIO_MODER_MODER8| 
-                                    GPIO_MODER_MODER9)) | 
-                                    GPIO_MODER_MODER4_1| 
-                                    GPIO_MODER_MODER8_1 | 
-                                    GPIO_MODER_MODER9_1; /* (2) */
 
-  GPIOA->AFR[0] |= 0x04 << GPIO_AFRL_AFRL4;/* (3) */
-  GPIOA->AFR[1] |= (0x02 << GPIO_AFRH_AFR8) | (0x02 << GPIO_AFRL_AFRH9); /* (4) */
 
 
 }
@@ -43,17 +54,21 @@ void PWM_init(){
 
 void leds_process(){
   //прочитать крутилку-задаваку
-  //захренакать как коэф. заполнения
-  //
-  //
-  //
+  //и захуярить как X
+
+  //прочитать аналоговый вход Y
+
+  //расчитать ПИД
+
+  //выдать коэф. заполнения ШИМ
 
 }
 
 void main()
 {
-  
-  leds_init();
+  u_gpio gpio_A1;
+  leds_init(&gpio_A1);
+
   while (1)
   {
     leds_process();
