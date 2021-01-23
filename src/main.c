@@ -41,14 +41,14 @@ void PWM_init(){
          select edge aligned mode (CMS = 00, reset value)
          select direction as upcounter (DIR = 0, reset value) */
   /* (8) Force update generation (UG = 1) */
-  TIMx->PSC =7;/* (1) */
-  TIMx->ARR =8;/* (2) */
-  TIMx->CCR1 =4;/* (3) */
-  TIMx->CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1| TIM_CCMR1_OC1PE;/* (4) */
-  TIMx->CCER |= TIM_CCER_CC1E;/* (5) */
-  TIMx->BDTR |= TIM_BDTR_MOE;/* (6) */
-  TIMx->CR1 |= TIM_CR1_CEN;/* (7) */
-  TIMx->EGR |= TIM_EGR_UG;/* (8) */
+  TIM1->PSC =7;/* (1) */
+  TIM1->ARR =8;/* (2) */
+  TIM1->CCR1 =4;/* (3) */
+  TIM1->CCMR1 |= TIM_CCMR1_OC1M_2 | TIM_CCMR1_OC1M_1| TIM_CCMR1_OC1PE;/* (4) */
+  TIM1->CCER |= TIM_CCER_CC1E;/* (5) */
+  TIM1->BDTR |= TIM_BDTR_MOE;/* (6) */
+  TIM1->CR1 |= TIM_CR1_CEN;/* (7) */
+  TIM1->EGR |= TIM_EGR_UG;/* (8) */
 }
 
 

@@ -7,6 +7,17 @@ CFLAGS := -nostdlib -nostartfiles -ffreestanding\
 
 CFLAGS :=$(CFLAGS) $(FOLDERS)
 
+#ларчик, блять, просто открывался, ёбанный soft fp в этой библиотеке спрятан, ёба, год ебался
+#даже, блять, реализацию fixed point сделал из-за этой выбляди уёбской
+#из-за неё мой мозг знает такое словосочетание как аппроксимация Паде,
+#умеет чуть ли ни в уме Тейлора считать, интерполяцию Гаусовой функции навскидку проводить..
+#всякую хуйню что мол сдвиг влево это умножение на 2, вправо деление.. да ну нахуй!
+#проебал год жизни и пиздатую девушку, и всё блять из-за -lgcc??? Ёбаный стыд, я в ахуе....
+#даже военкомат со мной так не поступал..
+LDFLAGS := -L/usr/lib/gcc/arm-none-eabi/7.3.1/thumb/ -lgcc
+
+
+
 FILES :=$(shell find . -name '*.c')
 OBJ:=$(patsubst %.c, %.o,$(FILES))
 
@@ -27,13 +38,13 @@ bin: $(FILES)
 
 build.elf: bin boot.o
 		#3 Линкуем
-		arm-none-eabi-ld -o build.elf -T link.ld *.o
+		arm-none-eabi-ld -o build.elf -T link.ld *.o $(LDFLAGS)
 		#arm-none-eabi-ld -o build.elf -T stm32_flash.ld *.o
 
 binary.bin: build.elf
 		#4 Извлекаем бинарные данные
 		arm-none-eabi-objcopy build.elf binary.bin -O binary
-		
+		size build.elf
 		
 
 upload: binary.bin

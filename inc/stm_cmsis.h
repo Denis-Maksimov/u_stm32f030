@@ -476,8 +476,9 @@ typedef enum IRQn
   * @}
   */
 #include <stdint.h>
- #define __IO volatile
- 
+#include "core.h"
+//  #define __IO volatile
+
 typedef uint32_t u32;
 typedef uint16_t u16;
 typedef uint8_t u8;
